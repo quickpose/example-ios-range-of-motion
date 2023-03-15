@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "quickpose-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/quickpose/quickpose-ios-sdk",
+      "state" : {
+        "revision" : "66df7fe31022db2b0aca0cf50b1f7ebc25f8c6e0",
+        "version" : "0.6.0"
+      }
+    }
+  ],
+  "version" : 2
+}
