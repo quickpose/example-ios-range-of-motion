@@ -70,7 +70,7 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { reader in
             ZStack {
-                if let url = Bundle.main.url(forResource: "user-v2", withExtension: "mov") {
+                if ProcessInfo.processInfo.isiOSAppOnMac, let url = Bundle.main.url(forResource: "user-v2", withExtension: "mov") {
                     QuickPoseSimulatedCameraView(useFrontCamera: true, delegate: quickPose, video: url) {
                         // on video loop
                         viewState = .updateAndAddFeaturesAfterDelay(nextState: .introToApp, delaySeconds: 2, features: [.thumbsUp()])
@@ -100,7 +100,7 @@ struct ContentView: View {
                 }
             }
             .onAppear {
-                quickPose.start(features: []) { _, outputImage, results, _ in
+                quickPose.start(features: []) { _, outputImage, results, _, _ in
                     overlayImage = outputImage
                     
                     if viewState == .introToApp, let measurementResult = results[.thumbsUp()] {
