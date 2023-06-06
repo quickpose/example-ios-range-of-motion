@@ -56,7 +56,7 @@ struct ContentView: View {
             }
         }
     }
-    var quickPose = QuickPose(sdkKey: "01GSWNY1GK411GRZ0NJXBEYQA9")
+    var quickPose = QuickPose(sdkKey: "YOUR SDK KEY HERE")
     @State var overlayImage: UIImage?
     @State var viewState = ViewState.notInitialized
     @State var kneeLateralResult: QuickPose.FeatureResult?
@@ -68,7 +68,7 @@ struct ContentView: View {
     let kneeFlexion = QuickPose.Feature.rangeOfMotion(.knee(side: .right, clockwiseDirection: true))
     
     var body: some View {
-        GeometryReader { reader in
+        GeometryReader { geometry in
             ZStack {
                 if ProcessInfo.processInfo.isiOSAppOnMac, let url = Bundle.main.url(forResource: "user-v2", withExtension: "mov") {
                     QuickPoseSimulatedCameraView(useFrontCamera: true, delegate: quickPose, video: url) {
@@ -81,6 +81,8 @@ struct ContentView: View {
                 
                 QuickPoseOverlayView(overlayImage: $overlayImage)
             }
+            .frame(width: geometry.size.width)
+            .edgesIgnoringSafeArea(.all)
             .overlay(alignment: .bottom) {
                 if let prompt = viewState.prompt(kneeLateralResult: kneeLateralResult, kneeFlexionResult: kneeFlexionResult) {
                     Text(prompt)
@@ -93,7 +95,7 @@ struct ContentView: View {
             }
             .overlay(alignment: .topTrailing) {
                 if let image = viewState.promptImage {
-                    Image(image).resizable().aspectRatio(contentMode: .fit).frame(width: reader.size.width*0.3)
+                    Image(image).resizable().aspectRatio(contentMode: .fit).frame(width: geometry.size.width*0.3)
                         .padding(12)
                         .background(RoundedRectangle(cornerRadius: 4).foregroundColor(Color.white))
                         .padding(.bottom, 100)
