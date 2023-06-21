@@ -64,7 +64,7 @@ struct ContentView: View {
     
     var unchangedDetector = QuickPoseDoubleUnchangedDetector(similarDuration: TimeInterval(0.3), leniency: 0.05)
     
-    let kneeLateral = QuickPose.Feature.measureAngleBody(origin: .userRightKnee, p1: .userRightAnkle, p2: nil, clockwiseDirection: false)
+    let kneeLateral = QuickPose.Feature.measureAngleBody(origin: .knee(side: .right), p1: .ankle(side: .right), p2: nil, clockwiseDirection: false)
     let kneeFlexion = QuickPose.Feature.rangeOfMotion(.knee(side: .right, clockwiseDirection: true))
     
     var body: some View {
